@@ -1,0 +1,1 @@
+./sysbench --test=tests/db/oltp.lua --oltp-tables-count=50 --db-driver=mysql --mysql-table-engine=innodb --oltp-table-size=1000000 --mysql-user=$user  --mysql-password=$password --mysql-db=$db --mysql-host=$host  --mysql-port=3306 prepare
