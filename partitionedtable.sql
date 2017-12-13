@@ -1,1 +1,29 @@
+drop table if exists sbtest27_1;
 
+CREATE TABLE `sbtest27_1` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `k` int(10) unsigned NOT NULL DEFAULT '0',
+  `c` char(120) NOT NULL DEFAULT '',
+  `pad` char(60) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `k_27_1` (`k`)
+)
+PARTITION by range (id) (
+PARTITION p0 VALUES LESS THAN (100000),
+PARTITION p1 VALUES LESS THAN (200000),
+PARTITION p2 VALUES LESS THAN (300000),
+PARTITION p3 VALUES LESS THAN (400000),
+PARTITION p4 VALUES LESS THAN (500000),
+PARTITION p5 VALUES LESS THAN (600000),
+PARTITION p6 VALUES LESS THAN (700000),
+PARTITION p7 VALUES LESS THAN (800000),
+PARTITION p8 VALUES LESS THAN (900000),
+PARTITION p9 VALUES LESS THAN (1000000),
+PARTITION p10 VALUES LESS THAN MAXVALUE);
+
+INSERT INTO sbtest27_1 select * from sbtest27;
+
+drop table sbtest28;
+rename table sbtest27 to sbtest28;
+
+--repeat any of the previous tests with table sbtest28
