@@ -1,0 +1,27 @@
+DROP TABLE sbtest27_fk;
+CREATE TABLE `sbtest27_fk` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `k` int(10) unsigned NOT NULL DEFAULT '0',
+  `c` char(120) NOT NULL DEFAULT '',
+  `pad` char(60) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `k_27_1` (`k`)
+) ;
+
+INSERT INTO sbtest27_fk select * from sbtest40;
+
+alter table sbtest27_fk add column sec_key int unsigned;
+
+update sbtest27_fk set sec_key=rand()*1000000;
+
+update sbtest27_fk set sec_key=11 where sec_key=0;
+
+select sleep(30);
+
+alter table sbtest27_fk add constraint fk_sec_key foreign key (sec_key) references sbtest40(id);
+
+drop table sbtest29;
+
+rename table sbtest27_fk to sbtest29;
+
+-- repeat tests with sbtest29
